@@ -1,7 +1,6 @@
 package net.virtualinfinity.atrobots.computer;
 
 import net.virtualinfinity.atrobots.measures.Duration;
-import net.virtualinfinity.atrobots.ports.InvalidPort;
 import net.virtualinfinity.atrobots.ports.PortHandler;
 import net.virtualinfinity.atrobots.ports.PortListener;
 
@@ -34,7 +33,7 @@ public class Computer implements PortListener, Restartable {
     private DebugListener debugListener = new EmptyDebugListener();
     private int id;
     private String name;
-    private final DebugInfo debugInfo;
+    private DebugInfo debugInfo;
 
     public Computer(Memory memory, int stackSize, int maxProcessorSpeed, DebugInfo debugInfo) {
         this.memory = memory;
@@ -232,7 +231,7 @@ public class Computer implements PortListener, Restartable {
     }
 
     public PortHandler createDefaultPortHandler() {
-        return new Computer().setPortListener(Computer.this);
+        return new PortHandler(){}.setPortListener(Computer.this);
     }
 
     public MemoryRegion getCommQueueMemoryRegion() {
